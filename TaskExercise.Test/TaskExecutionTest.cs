@@ -110,10 +110,6 @@ namespace TaskExercise.Test
             //       TASK1  /   
             //        /    /
             //      TASK11 
-            //ROOT
-            //    TASK1
-            //      TASK11
-            //          ROOT
             //Arrange
             var root = new Task("Root");
             var task1 = new Task("Task1");
