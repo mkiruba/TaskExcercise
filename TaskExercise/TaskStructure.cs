@@ -6,15 +6,21 @@ namespace TaskExercise
 {
     public class TaskStructure : ITaskStructure
     {
+        #region Private declarations
         private readonly Task taskList;
+        #endregion
 
+        #region Constructor
         public TaskStructure(Task task)
         {
             taskList = task;
-        }
+        } 
+        #endregion
+
+        #region Public methods ITaskStructure implementaions
 
         public void AddChild(Task parentTask, Task task)
-        {          
+        {
             parentTask.ChildTasks.Add(task);
         }
 
@@ -29,6 +35,10 @@ namespace TaskExercise
             result.Reverse();
             return result;
         }
+
+        #endregion
+       
+        #region Private methods
 
         private void GetChildTaskName(Task parentTask, List<string> taskResults)
         {
@@ -61,6 +71,7 @@ namespace TaskExercise
                     }
                 }
             }
-        }
+        } 
+        #endregion
     }
 }

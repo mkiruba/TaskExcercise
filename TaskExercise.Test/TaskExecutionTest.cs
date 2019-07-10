@@ -65,7 +65,7 @@ namespace TaskExercise.Test
         }
 
         [TestMethod]
-        public void Should_add_tasks_two_parents()
+        public void Should_add_tasks_with_two_parents()
         {
             //             ROOT
             //            /    \
