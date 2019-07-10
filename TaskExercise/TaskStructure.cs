@@ -45,12 +45,14 @@ namespace TaskExercise
         private void ValidateAndAddTask(List<string> taskResults, Task task)
         {
             var name = task.Name;
+            //do not add if exists
             if (!taskResults.Contains(name))
             {
                 taskResults.Add(task.Name);
             }
             else
             {
+                //if exists the child also exists which means it is circular reference
                 foreach (var childTask in task.ChildTasks)
                 {
                     if (taskResults.Contains(childTask.Name))

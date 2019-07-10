@@ -10,9 +10,9 @@ namespace TaskExercise.Test
         [TestMethod]
         public void Should_add_tasks_2level()
         {
-            //ROOT
-            //    TASK1
-            //    TASK2
+            //              ROOT
+            //              /  \
+            //          TASK1   TASK2
             //Arrange
             var root = new Task("Root");
             var task1 = new Task("Task1");
@@ -33,13 +33,12 @@ namespace TaskExercise.Test
         [TestMethod]
         public void Should_add_tasks_3level()
         {
-            //ROOT
-            //    TASK1
-            //      TASK11
-            //      TASK12
-            //    TASK2
-            //      TASK21
-            //      TASK22
+            //             ROOT
+            //            /    \
+            //       TASK1      TASK2
+            //        /  \       /  \
+            //   TASK11 TASK12 TASK21 TASK22
+            
             //Arrange
             var root = new Task("Root");
             var task1 = new Task("Task1");
@@ -68,13 +67,11 @@ namespace TaskExercise.Test
         [TestMethod]
         public void Should_add_tasks_two_parents()
         {
-            //ROOT
-            //    TASK1
-            //      TASK11
-            //      TASK12
-            //    TASK2
-            //      TASK21
-            //      TASK12
+            //             ROOT
+            //            /    \
+            //       TASK1    TASK2
+            //        /  \    /   \
+            //   TASK11 TASK12  TASK21           
             //Arrange
             var root = new Task("Root");
             var task1 = new Task("Task1");
@@ -108,6 +105,11 @@ namespace TaskExercise.Test
         [ExpectedException(typeof(ArgumentException))]
         public void Should_fail_tasks_when_cirular_reference()
         {
+            //          ROOT
+            //          /   \ 
+            //       TASK1  /   
+            //        /    /
+            //      TASK11 
             //ROOT
             //    TASK1
             //      TASK11
