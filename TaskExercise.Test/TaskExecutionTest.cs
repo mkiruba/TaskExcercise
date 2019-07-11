@@ -1,12 +1,21 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
+using TaskExercise.Factory;
 
 namespace TaskExercise.Test
 {
     [TestClass]
     public class TaskExecutionTest
     {
+        private TaskFactory taskFactory;
+
+        [TestInitialize]
+        public void Initialise()
+        {
+            taskFactory = new TaskExerciseFactory();
+        }
+
         [TestMethod]
         public void Should_add_tasks_2level()
         {
@@ -17,7 +26,7 @@ namespace TaskExercise.Test
             var root = new Task("Root");
             var task1 = new Task("Task1");
             var task2 = new Task("Task2");
-            var taskExecution = new TaskStructure(root);
+            var taskExecution = taskFactory.Create(root);
             taskExecution.AddChild(root, task1);
             taskExecution.AddChild(root, task2);
 
@@ -47,7 +56,7 @@ namespace TaskExercise.Test
             var task12 = new Task("Task12");
             var task21 = new Task("Task21");
             var task22 = new Task("Task22");
-            var taskExecution = new TaskStructure(root);
+            var taskExecution = taskFactory.Create(root);
             taskExecution.AddChild(root, task1);
             taskExecution.AddChild(root, task2);
             taskExecution.AddChild(task1, task11);
@@ -79,7 +88,7 @@ namespace TaskExercise.Test
             var task11 = new Task("Task11");
             var task12 = new Task("Task12");
             var task21 = new Task("Task21");
-            var taskExecution = new TaskStructure(root);
+            var taskExecution = taskFactory.Create(root);
             taskExecution.AddChild(root, task1);
             taskExecution.AddChild(root, task2);
             taskExecution.AddChild(task1, task11);
@@ -114,7 +123,7 @@ namespace TaskExercise.Test
             var root = new Task("Root");
             var task1 = new Task("Task1");
             var task11 = new Task("Task11");
-            var taskExecution = new TaskStructure(root);
+            var taskExecution = taskFactory.Create(root);
             taskExecution.AddChild(root, task1);
             taskExecution.AddChild(task1, task11);
             taskExecution.AddChild(task11, root);
