@@ -1,6 +1,6 @@
 # TaskExcercise
 
-* Time spent 2 hours.
+**Time spent - 2 hours.**
 
 * Task class is the data structure class.
 
