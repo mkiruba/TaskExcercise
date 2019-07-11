@@ -8,12 +8,14 @@ namespace TaskExercise.Test
     [TestClass]
     public class TaskExecutionTest
     {
-        private TaskFactory taskFactory;
-
+        private ITaskFactory taskFactory;
+        private ITask taskStructure;
         [TestInitialize]
         public void Initialise()
         {
-            taskFactory = new TaskExerciseFactory();
+            taskFactory = new TaskFactory();
+            //Factory creates instance
+            taskStructure = taskFactory.Create<ITask>();
         }
 
         [TestMethod]
@@ -23,15 +25,16 @@ namespace TaskExercise.Test
             //              /  \
             //          TASK1   TASK2
             //Arrange
-            var root = new Task("Root");
-            var task1 = new Task("Task1");
-            var task2 = new Task("Task2");
-            var taskExecution = taskFactory.Create(root);
-            taskExecution.AddChild(root, task1);
-            taskExecution.AddChild(root, task2);
+            var root = new TaskItem("Root");
+            var task1 = new TaskItem("Task1");
+            var task2 = new TaskItem("Task2");
+            var taskStructure = taskFactory.Create<ITask>();
+            taskStructure.AddRoot(root);
+            taskStructure.AddChild(root, task1);
+            taskStructure.AddChild(root, task2);
 
             //Act
-            var actual = taskExecution.Execute(root);
+            var actual = taskStructure.Execute(root);
 
             //Assert
             Assert.AreEqual(actual.Count, 3);
@@ -49,23 +52,24 @@ namespace TaskExercise.Test
             //   TASK11 TASK12 TASK21 TASK22
             
             //Arrange
-            var root = new Task("Root");
-            var task1 = new Task("Task1");
-            var task2 = new Task("Task2");
-            var task11 = new Task("Task11");
-            var task12 = new Task("Task12");
-            var task21 = new Task("Task21");
-            var task22 = new Task("Task22");
-            var taskExecution = taskFactory.Create(root);
-            taskExecution.AddChild(root, task1);
-            taskExecution.AddChild(root, task2);
-            taskExecution.AddChild(task1, task11);
-            taskExecution.AddChild(task1, task12);
-            taskExecution.AddChild(task2, task21);
-            taskExecution.AddChild(task2, task22);
+            var root = new TaskItem("Root");
+            var task1 = new TaskItem("Task1");
+            var task2 = new TaskItem("Task2");
+            var task11 = new TaskItem("Task11");
+            var task12 = new TaskItem("Task12");
+            var task21 = new TaskItem("Task21");
+            var task22 = new TaskItem("Task22");
+            var taskStructure = taskFactory.Create<ITask>();
+            taskStructure.AddRoot(root);
+            taskStructure.AddChild(root, task1);
+            taskStructure.AddChild(root, task2);
+            taskStructure.AddChild(task1, task11);
+            taskStructure.AddChild(task1, task12);
+            taskStructure.AddChild(task2, task21);
+            taskStructure.AddChild(task2, task22);
 
             //Act
-            var actual = taskExecution.Execute(root);
+            var actual = taskStructure.Execute(root);
 
             //Assert
             Assert.AreEqual(actual.Count, 7);
@@ -82,23 +86,24 @@ namespace TaskExercise.Test
             //        /  \    /   \
             //   TASK11 TASK12  TASK21           
             //Arrange
-            var root = new Task("Root");
-            var task1 = new Task("Task1");
-            var task2 = new Task("Task2");
-            var task11 = new Task("Task11");
-            var task12 = new Task("Task12");
-            var task21 = new Task("Task21");
-            var taskExecution = taskFactory.Create(root);
-            taskExecution.AddChild(root, task1);
-            taskExecution.AddChild(root, task2);
-            taskExecution.AddChild(task1, task11);
-            taskExecution.AddChild(task1, task12);
-            taskExecution.AddChild(task2, task21);
-            taskExecution.AddChild(task2, task12);
+            var root = new TaskItem("Root");
+            var task1 = new TaskItem("Task1");
+            var task2 = new TaskItem("Task2");
+            var task11 = new TaskItem("Task11");
+            var task12 = new TaskItem("Task12");
+            var task21 = new TaskItem("Task21");
+            var taskStructure = taskFactory.Create<ITask>();
+            taskStructure.AddRoot(root);
+            taskStructure.AddChild(root, task1);
+            taskStructure.AddChild(root, task2);
+            taskStructure.AddChild(task1, task11);
+            taskStructure.AddChild(task1, task12);
+            taskStructure.AddChild(task2, task21);
+            taskStructure.AddChild(task2, task12);
 
             //Act
-            var actual = taskExecution.Execute(root);
-            var actualTask1 = taskExecution.Execute(task1);
+            var actual = taskStructure.Execute(root);
+            var actualTask1 = taskStructure.Execute(task1);
 
             //Assert
             Assert.AreEqual(actual.Count, 6);
@@ -120,17 +125,18 @@ namespace TaskExercise.Test
             //        /    /
             //      TASK11 
             //Arrange
-            var root = new Task("Root");
-            var task1 = new Task("Task1");
-            var task11 = new Task("Task11");
-            var taskExecution = taskFactory.Create(root);
-            taskExecution.AddChild(root, task1);
-            taskExecution.AddChild(task1, task11);
-            taskExecution.AddChild(task11, root);
+            var root = new TaskItem("Root");
+            var task1 = new TaskItem("Task1");
+            var task11 = new TaskItem("Task11");
+            var taskStructure = taskFactory.Create<ITask>();
+            taskStructure.AddRoot(root);
+            taskStructure.AddChild(root, task1);
+            taskStructure.AddChild(task1, task11);
+            taskStructure.AddChild(task11, root);
 
             //Act
-            var actual = taskExecution.Execute(root);
-            var actualTask1 = taskExecution.Execute(task1);
+            var actual = taskStructure.Execute(root);
+            var actualTask1 = taskStructure.Execute(task1);
 
             //Assert
             Assert.AreEqual(actual.Count, 7);

@@ -1,7 +1,20 @@
-﻿namespace TaskExercise.Factory
+﻿using System;
+
+namespace TaskExercise.Factory
 {
-    public abstract class TaskFactory
+    public class TaskFactory : ITaskFactory
     {
-        public abstract ITaskStructure Create(Task task);
+        public T Create<T>()
+        {
+            //Add more instance creation for other implementations
+            if (typeof(T) == typeof(ITask))
+            {
+                return (T)(ITask)new Task();
+            }
+            else
+            {
+                throw new NotImplementedException($"Creation of {typeof(T)} interface is not supported yet.");
+            }
+        }
     }
 }
