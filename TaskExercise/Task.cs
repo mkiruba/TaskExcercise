@@ -7,14 +7,14 @@ namespace TaskExercise
     public class Task : ITask
     {
         #region Private declarations
-        private TaskItem taskList;
+        private TaskItem rootTask;
         #endregion
 
         #region Public methods ITaskStructure implementaions
 
         public void AddRoot(TaskItem parentTask)
         {
-            taskList = parentTask;
+            rootTask = parentTask;
         }
 
         public void AddChild(TaskItem parentTask, TaskItem task)

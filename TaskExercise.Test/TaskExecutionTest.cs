@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using TaskExercise.Factory;
 
@@ -37,9 +38,12 @@ namespace TaskExercise.Test
             var actual = taskStructure.Execute(root);
 
             //Assert
-            Assert.AreEqual(actual.Count, 3);
-            Assert.AreEqual(actual.Last(), "Root");
-            Assert.AreEqual(actual.First(), "Task2");
+            var expected = new List<string>() { "Task2", "Task1", "Root" };
+            Assert.AreEqual(actual.Count, expected.Count);            
+            for (int i = 0; i < actual.Count; i++)
+            {
+                Assert.AreEqual(actual[i], expected[i]);
+            }            
         }
 
         [TestMethod]
@@ -72,9 +76,12 @@ namespace TaskExercise.Test
             var actual = taskStructure.Execute(root);
 
             //Assert
-            Assert.AreEqual(actual.Count, 7);
-            Assert.AreEqual(actual.Last(), "Root");
-            Assert.AreEqual(actual.First(), "Task22");
+            var expected = new List<string>() { "Task22", "Task21", "Task2", "Task12", "Task11", "Task1", "Root" };
+            Assert.AreEqual(actual.Count, expected.Count);
+            for (int i = 0; i < actual.Count; i++)
+            {
+                Assert.AreEqual(actual[i], expected[i]);
+            }
         }
 
         [TestMethod]
@@ -106,13 +113,19 @@ namespace TaskExercise.Test
             var actualTask1 = taskStructure.Execute(task1);
 
             //Assert
-            Assert.AreEqual(actual.Count, 6);
-            Assert.AreEqual(actual.Last(), "Root");
-            Assert.AreEqual(actual.First(), "Task21");
+            var expected = new List<string>() { "Task21", "Task2", "Task12", "Task11", "Task1", "Root" };
+            Assert.AreEqual(actual.Count, expected.Count);
+            for (int i = 0; i < actual.Count; i++)
+            {
+                Assert.AreEqual(actual[i], expected[i]);
+            }
 
-            Assert.AreEqual(actualTask1.Count, 3);
-            Assert.AreEqual(actualTask1.Last(), "Task1");
-            Assert.AreEqual(actualTask1.First(), "Task12");
+            var expected2 = new List<string>() { "Task12", "Task11", "Task1" };
+            Assert.AreEqual(actual.Count, expected.Count);
+            for (int i = 0; i < actual.Count; i++)
+            {
+                Assert.AreEqual(actual[i], expected[i]);
+            }
         }
 
         [TestMethod]
