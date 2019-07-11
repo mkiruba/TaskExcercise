@@ -1,12 +1,13 @@
 # TaskExcercise
 
-**Time spent - 2 hours.**
 
-* Task class is the data structure class.
 
-* TaskStructure is the class to construct the tree.
+* TaskItem class is the data structure class.
 
-* ITaskStructure is the Interface contract. Functionality can be extended by inheriting from this interface.
+* Task is the class to construct the tree.
+
+* ITask is the Interface contract.
+* ITaskFactory, TaskFactory are the factory classes that generate relevant objects. This factory can be amended to have further implemetation of various Task.
 
 ## Unit Tests
 
