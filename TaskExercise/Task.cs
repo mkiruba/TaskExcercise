@@ -24,13 +24,10 @@ namespace TaskExercise
 
         public List<string> Execute(TaskItem task)
         {
-            List<string> taskResults = new List<string>
-            {
-                task.Name
-            };
+            Stack<string> taskResults = new Stack<string>();
+            taskResults.Push(task.Name);
             GetChildTaskName(task, taskResults);
             var result = taskResults.ToList();
-            result.Reverse();
             return result;
         }
 
@@ -38,7 +35,7 @@ namespace TaskExercise
        
         #region Private methods
 
-        private void GetChildTaskName(TaskItem parentTask, List<string> taskResults)
+        private void GetChildTaskName(TaskItem parentTask, Stack<string> taskResults)
         {
             foreach (var task in parentTask.ChildTasks)
             {
@@ -50,13 +47,13 @@ namespace TaskExercise
             }
         }
 
-        private void ValidateAndAddTask(List<string> taskResults, TaskItem task)
+        private void ValidateAndAddTask(Stack<string> taskResults, TaskItem task)
         {
             var name = task.Name;
             //do not add if exists
             if (!taskResults.Contains(name))
             {
-                taskResults.Add(task.Name);
+                taskResults.Push(task.Name);
             }
             else
             {
